@@ -1,3 +1,4 @@
-# PK2
+Projekt Warcaby- Maria Cieślak
 
-Aby program zadziałał prawidłowo, konieczne jest pobranie folderu x64 i bibliotek Allegro.5.2.6 oraz AllegroDeps 1.11.0.
+Program uruchamiany jest za pomocą pliku Win32Project_v1.exe.
+Aby gra zadziałała, potrzeba pobrać folder x64.
