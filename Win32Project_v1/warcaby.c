@@ -1,49 +1,13 @@
-/** @file */
+ï»¿/** @file */
+#pragma warning(suppress : 4996)
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <allegro5/allegro5.h>
 #include "warcaby.h"
 
 #define k 64 //szerokosc jednego wyswietlanego okienka
 
-void nowy_wiersz(int tab[N][N], int pole_pierwsze, int pole_drugie, int wiersz)
-{
-	int i;
-	int j = 1;
 
-	for (i = 0; i<N; ++i)
-	{
-		if (j == 1)
-			tab[wiersz][i] = pole_pierwsze;
-
-
-		if (j == 2)
-		{
-			tab[wiersz][i] = pole_drugie;
-			j = 0;
-		}
-		++j;
-	}
-}
-
-
-
-void utworz_nowa_szachownice(int tablica[N][N])
-{
-	int i = 1;
-	int j;
-
-	for (j = 0; j < N; ++j)
-	{
-		if (i == 1)
-			nowy_wiersz(tablica, pole_biale, pole_czarne, j);
-		if (i == 2)
-		{
-			nowy_wiersz(tablica, pole_czarne, pole_biale, j);
-			i = 0;
-		}
-		++i;
-	}
-}
 
 
 
@@ -131,15 +95,15 @@ bool sprawdz_koniec(int tab[N][N], int gracz_pionek, int gracz_damka)
 
 bool damka_nastepne_bicie(int tab[N][N], int pola[N], int przeciwnik, int d_przeciwnik)
 {
-	//iterowanie a¿ napotka przeciwnika
-	//sprawdzenie czy nastepne pole o pole czarne-jeœli tak to return true
+	//iterowanie aÅ¼ napotka przeciwnika
+	//sprawdzenie czy nastepne pole o pole czarne-jeÅ›li tak to return true
 	int temp_x;
 	int temp_y;
 	int x = pola[6];
 	int y = pola[7];
 
 	int i = 1;
-	int straznik = 0;//pilnuj¹ czy dla danego kierunku, po drodze nie wys¹pi³ w³asny pionek
+	int straznik = 0;//pilnujÄ… czy dla danego kierunku, po drodze nie wysÄ…piÅ‚ wÅ‚asny pionek
 
 	temp_x = x;
 	temp_y = y;
@@ -395,7 +359,7 @@ int sprawdzaj_ruch(int tab[N][N], int pola[N], int obecny_gracz)
 	int przeciwnik = pionek_bialy;
 	int damka_przecwnik = damka_biala;
 
-	if (obecny_gracz == gracz_bia³y)
+	if (obecny_gracz == gracz_biaÅ‚y)
 	{
 		przeciwnik = pionek_czarny;
 		damka_przecwnik = damka_czarna;
@@ -418,7 +382,7 @@ int sprawdzaj_ruch(int tab[N][N], int pola[N], int obecny_gracz)
 
 
 
-	//zmienne z jakiej pozycji siê rusza i na jak¹ chce iœæ
+	//zmienne z jakiej pozycji siÄ™ rusza i na jakÄ… chce iÅ›Ä‡
 	int z_pola = tab[pola[4]][pola[5]];
 	int na_pole = tab[pola[6]][pola[7]];
 
@@ -426,7 +390,7 @@ int sprawdzaj_ruch(int tab[N][N], int pola[N], int obecny_gracz)
 	int pionek_zbity_y = (pola[5] + pola[7]) / 2;
 
 
-	//sprawdzenie czy nie swoim pionkiem, wed³ug kolejnoœci
+	//sprawdzenie czy nie swoim pionkiem, wedÅ‚ug kolejnoÅ›ci
 	int z_temp = pionek_bialy;
 
 	if (obecny_gracz == gracz_czarny)
@@ -435,13 +399,13 @@ int sprawdzaj_ruch(int tab[N][N], int pola[N], int obecny_gracz)
 	if (z_temp != z_pola)
 		return 0;
 
-	//ruch z pustego pola, lub na niedozwolone pole bia³e
+	//ruch z pustego pola, lub na niedozwolone pole biaÅ‚e
 	if (z_pola == pole_biale || z_pola == pole_czarne || na_pole != pole_czarne)
 		return 0;
 
 
 
-	//sprawdzenie czy nie cofn¹³ ruchu
+	//sprawdzenie czy nie cofnÄ…Å‚ ruchu
 	if (z_temp == pionek_bialy)
 	{
 		if (pola[6] > pola[4])
@@ -453,7 +417,7 @@ int sprawdzaj_ruch(int tab[N][N], int pola[N], int obecny_gracz)
 			return 0;
 	}
 
-	//spradzeni czy ruch nie jest za d³ugi,mo¿e zbijaæ
+	//spradzeni czy ruch nie jest za dÅ‚ugi,moÅ¼e zbijaÄ‡
 	int dlugosc_x = abs(pola[4] - pola[6]);
 	int dlugosc_y = abs(pola[5] - pola[7]);
 
@@ -464,7 +428,7 @@ int sprawdzaj_ruch(int tab[N][N], int pola[N], int obecny_gracz)
 	{
 		if (tab[pionek_zbity_x][pionek_zbity_y] == przeciwnik || tab[pionek_zbity_x][pionek_zbity_y] == damka_przecwnik)//poprawne zbicie
 		{
-			tab[pionek_zbity_x][pionek_zbity_y] = pole_czarne;//usuniêcie pionka
+			tab[pionek_zbity_x][pionek_zbity_y] = pole_czarne;//usuniÄ™cie pionka
 
 			if (sprawdz_wielokrotny_pionek(tab, pola, przeciwnik, damka_przecwnik) == true)//sprawdzenie czy jeszcze cos moze zbic
 				return 2;
@@ -517,8 +481,28 @@ bool odczytaj_pola(int punkty[N], int szachownica[N][N], int obecny_gracz)
 	}
 }
 
+void zapisz_parametry_mapy_na_koncu_gry_do_pliku_(int szachownica[N][N], char *nazwa_pliku)
+{
 
-bool graj()
+	FILE *f = fopen(nazwa_pliku, "w");
+	if (f == NULL)
+	{
+		printf("Error opening file!\n");
+		exit(1);
+	}
+
+	for (int i = 0;i < N;i++) {
+
+		for (int j = 0;j < N;j++)
+			fprintf( f, ",%d ", szachownica[i][j]);
+		fprintf(f, "\n");
+	}
+
+	fclose(f);
+
+}
+
+bool graj(char *nazwa_pliku)
 {
 	//rozmiar okienka
 	int width = 512;
@@ -598,7 +582,7 @@ bool graj()
 			}
 		}
 
-		//¿eby przenieœæ pionek trzeba go chwyciæ i przytrzymaæ.
+		//Å¼eby przenieÅ›Ä‡ pionek trzeba go chwyciÄ‡ i przytrzymaÄ‡.
 		//z pola
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
 		{
@@ -606,16 +590,16 @@ bool graj()
 			polozenie[0] = ev.mouse.y;
 		}
 
-		//na pole+odpowiednia kolejnosc-zaczyna bia³y zawsze
+		//na pole+odpowiednia kolejnosc-zaczyna biaÅ‚y zawsze
 		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
 		{
 			polozenie[3] = ev.mouse.x;
 			polozenie[2] = ev.mouse.y;
 
-			if (kolejnosc == 0) //gracz bia³y
+			if (kolejnosc == 0) //gracz biaÅ‚y
 			{
-				//ruch niepoprawny, wiêc jeszcze raz bia³y
-				if (odczytaj_pola(polozenie, szachownica, gracz_bia³y) == false)
+				//ruch niepoprawny, wiÄ™c jeszcze raz biaÅ‚y
+				if (odczytaj_pola(polozenie, szachownica, gracz_biaÅ‚y) == false)
 					kolejnosc = -1;
 				else
 					kolejnosc = 0;
@@ -624,7 +608,7 @@ bool graj()
 
 			if (kolejnosc == 1)//czarny
 			{
-				//ruch niepoprawny, wiêc jeszcze raz czarny
+				//ruch niepoprawny, wiÄ™c jeszcze raz czarny
 				if (odczytaj_pola(polozenie, szachownica, gracz_czarny) == false)
 					kolejnosc = 0;
 
@@ -641,17 +625,24 @@ bool graj()
 
 		if (sprawdz_koniec(szachownica, pionek_czarny, damka_czarna) == true)
 		{
-			done = true;//koniec gry wygra³ gracz bia³y
-
+			done = true;//koniec gry wygraÅ‚ gracz biaÅ‚y
+			zapisz_parametry_mapy_na_koncu_gry_do_pliku_(szachownica, nazwa_pliku);
 		}
 
 		if (sprawdz_koniec(szachownica, pionek_bialy, damka_biala) == true)
 		{
-			done = true;//koniec gry wygra³ gracz czarny
+			done = true;//koniec gry wygraÅ‚ gracz czarny
+			zapisz_parametry_mapy_na_koncu_gry_do_pliku_(szachownica, nazwa_pliku);
 		}
 
 		al_flip_display();
+
+		
+		
 	}
+
+	
+
 
 	//zniszczenie bitmap
 	al_destroy_bitmap(pionek_cz);

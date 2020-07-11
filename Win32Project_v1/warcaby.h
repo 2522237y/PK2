@@ -3,6 +3,7 @@
 #include <allegro5\allegro.h>
 #include <allegro5\allegro_image.h>
 
+
 enum szachownica
 {
 	pole_biale,
@@ -15,6 +16,8 @@ enum szachownica
 	gracz_czarny = 11,
 	N = 8, //rozmiar szachownicy
 };
+
+void zapisz_parametry_mapy_na_koncu_gry_do_pliku_(int szachownica[N][N]);
 
 /** Funkcja wypełnia dany wiersz na przemian polami czarnymi i białymi, otrzymuje na przemian
 argumenty, które decydują o kolejności wypłenienia. */
@@ -69,4 +72,5 @@ bool odczytaj_pola(int punkty[N], int szachownica[N][N], int obecny_gracz);
 
 /**Funkcja zarząda wszystkimi pozostałymi funkcjami, generuje obrazy, pobiera i wczytuje bitmapy
 pobiera wpółrzędne myszki, wywołuje funkcje odpowiedzialne za ruchy i wyświetlanie obrazu, kończy grę */
-bool graj();
+bool graj(char *nazwa_pliku);
+

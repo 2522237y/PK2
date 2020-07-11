@@ -1,0 +1,3 @@
+﻿  Source.c
+g:\users\25222\desktop\popr\app\win32project_v1\win32project_v1\source.c(8): warning C4047: 'initializing': 'char' differs in levels of indirection from 'char [2]'
+  Win32Project_v1.vcxproj -> G:\Users\25222\Desktop\popr\app\Win32Project_v1\x64\Debug\Win32Project_v1.exe

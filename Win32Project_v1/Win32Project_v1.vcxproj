@@ -157,9 +157,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source.c" />
+    <ClCompile Include="szachownica.c" />
     <ClCompile Include="warcaby.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="szachownica.h" />
     <ClInclude Include="warcaby.h" />
   </ItemGroup>
   <ItemGroup>

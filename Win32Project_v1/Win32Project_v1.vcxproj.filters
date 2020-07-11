@@ -21,9 +21,15 @@
     <ClCompile Include="warcaby.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="szachownica.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="warcaby.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="szachownica.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
